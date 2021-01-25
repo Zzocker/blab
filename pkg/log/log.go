@@ -27,7 +27,8 @@ type Logger interface {
 
 // New Creates a new logger using default configuration
 func New() Logger {
-	lgr := &logger{}
+	l, _ := zap.NewProduction()
+	lgr := &logger{l.Sugar()}
 	return lgr
 }
 
