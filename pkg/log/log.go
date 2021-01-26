@@ -1,9 +1,7 @@
 package log
 
 import (
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"go.uber.org/zap/zaptest/observer"
+	"github.com/sirupsen/logrus"
 )
 
 // Logger is a logger that support log level and structured logging
@@ -19,6 +17,11 @@ type Logger interface {
 	// Infof is like fmt.Sprintf()
 	Infof(format string, args ...interface{})
 
+	// Warn is like fmt.Sprint()
+	Warn(args ...interface{})
+	// Warnf is like fmt.Sprintf()
+	Warnf(format string, args ...interface{})
+
 	Error(args ...interface{})
 	// Error is like fmt.Sprint()
 	Errorf(format string, args ...interface{})
@@ -27,14 +30,12 @@ type Logger interface {
 
 // New Creates a new logger using default configuration
 func New() Logger {
-	l, _ := zap.NewProduction()
-	lgr := &logger{l.Sugar()}
-	return lgr
+	l := logrus.New()
+	l.WriterLevel(logrus.DebugLevel)
+	return &logger{l}
 }
 
-// NewForTest returns a new logger and the corresponding observed logs which
-// can be used in unit to verify log entries
-func NewForTest() (Logger, *observer.ObservedLogs) {
-	core, recorder := observer.New(zapcore.InfoLevel)
-	return &logger{zap.New(core).Sugar()}, recorder
+// WithFields :
+func WithFields(l Logger, fields map[string]interface{}) Logger {
+	return l.(*logger).WithFields(fields)
 }

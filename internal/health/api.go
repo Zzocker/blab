@@ -3,14 +3,17 @@ package health
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/Zzocker/blab/pkg/response"
+	"github.com/gin-gonic/gin"
 )
 
 // RegisterHandlers registers the handlers that perform healthchecks
-func RegisterHandlers(r *mux.Router) {
-	r.HandleFunc("/check", check).Methods("GET")
+func RegisterHandlers(r *gin.Engine) {
+	r.GET("/ping", check)
 }
 
-func check(res http.ResponseWriter, req *http.Request) {
-	res.Write([]byte("OK"))
+func check(c *gin.Context) {
+	res := response.New()
+	defer res.Send(c)
+	res.SetCode(http.StatusInternalServerError, "not pong")
 }

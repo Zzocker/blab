@@ -1,7 +1,9 @@
 package log
 
-import "go.uber.org/zap"
+import (
+	"github.com/sirupsen/logrus"
+)
 
 type logger struct {
-	*zap.SugaredLogger
+	*logrus.Logger
 }
