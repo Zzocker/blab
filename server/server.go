@@ -11,6 +11,7 @@ import (
 
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/internal/health"
+	"github.com/Zzocker/blab/internal/user"
 	"github.com/Zzocker/blab/pkg/accesslog"
 	"github.com/Zzocker/blab/pkg/log"
 	"github.com/gin-gonic/gin"
@@ -31,6 +32,7 @@ func Run(conf *config.C) {
 
 func initializeRouters(r *gin.Engine) {
 	health.RegisterHandlers(r)
+	user.RegisterHandlers(r)
 }
 
 func addMiddlewares(r *gin.Engine, l log.Logger) {
