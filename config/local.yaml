@@ -1,1 +1,7 @@
 port: 8081
+mongoConf:
+  url: localhost:27018
+  username: root
+  password: password
+  database: blab
+userCollection: user

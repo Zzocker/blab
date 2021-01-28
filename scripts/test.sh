@@ -1,6 +1,6 @@
 #/bin/sh
 
-MONGO_NAME="mongo"
+MONGO_NAME="testmongo"
 GITROOT=$(git rev-parse --show-toplevel)
 
 function create_mongo(){

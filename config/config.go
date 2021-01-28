@@ -8,7 +8,18 @@ import (
 
 // C represents loaded config from yaml file
 type C struct {
-	Port int `yaml:"port"`
+	Port             int           `yaml:"port"`
+	MongoConf        DatastoreConf `yaml:"mongoConf"`
+	UserDSCollection string        `yaml:"userCollection"`
+}
+
+// DatastoreConf : config for connecting database
+type DatastoreConf struct {
+	URL        string `yaml:"url"`
+	Username   string `yaml:"username"`
+	Password   string `yaml:"password"`
+	Database   string `yaml:"database"`
+	Collection string `yaml:"-"`
 }
 
 // Init load config file from confPath

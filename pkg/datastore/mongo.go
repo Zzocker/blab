@@ -72,6 +72,10 @@ func (m *mongoDS) Delete(ctx context.Context, key, value string) errors.E {
 	return nil
 }
 
+func (m *mongoDS) Close(ctx context.Context) {
+	m.db.Database().Client().Disconnect(ctx)
+}
+
 // helper
 func isDuplicate(err error) bool {
 	if merr, ok := err.(mongo.WriteException); ok {

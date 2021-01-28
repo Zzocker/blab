@@ -12,7 +12,9 @@ import (
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/internal/health"
 	"github.com/Zzocker/blab/internal/user"
+	usermodel "github.com/Zzocker/blab/model/user"
 	"github.com/Zzocker/blab/pkg/accesslog"
+	"github.com/Zzocker/blab/pkg/datastore"
 	"github.com/Zzocker/blab/pkg/log"
 	"github.com/gin-gonic/gin"
 )
@@ -25,14 +27,16 @@ func Run(conf *config.C) {
 	// Add more configs to this router TODO
 
 	addMiddlewares(router, logger)
-	initializeRouters(router)
+	initializeRouters(router, conf, logger)
 
 	start(router, logger, conf)
 }
 
-func initializeRouters(r *gin.Engine) {
+func initializeRouters(r *gin.Engine, conf *config.C, l log.Logger) {
 	health.RegisterHandlers(r)
-	user.RegisterHandlers(r)
+	dsConf := conf.MongoConf
+	dsConf.Collection = conf.UserDSCollection
+	user.RegisterHandlers(r, usermodel.NewAccess(datastore.NewMongo(dsConf, l)), l)
 }
 
 func addMiddlewares(r *gin.Engine, l log.Logger) {
