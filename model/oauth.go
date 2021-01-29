@@ -8,7 +8,7 @@ const (
 )
 
 type Token struct {
-	ID       string    `json:"id"`
-	Type     tokenType `json:"type"`
-	ExpireIn int64     `json:"expire_in"`
+	ID       string    `json:"id" bson:"id"`
+	Type     tokenType `json:"type" bson:"type"`
+	ExpireIn int64     `json:"expire_in" bson:"expire_in"`
 }

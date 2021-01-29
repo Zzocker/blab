@@ -14,9 +14,9 @@ const (
 )
 
 type Comment struct {
-	ID    string `json:"id"`
-	Type  string `json:"type"`
-	On    string `json:"on"`    // id of which comment is being made
-	By    string `json:"by"`    // username of user who made this comment
-	Value string `json:"value"` // actual content of comment
+	ID    string `json:"id" bson:"id"`
+	Type  string `json:"type" bson:"type"`
+	On    string `json:"on" bson:"on"`       // id of which comment is being made
+	By    string `json:"by" bson:"by"`       // username of user who made this comment
+	Value string `json:"value" bson:"value"` // actual content of comment
 }
