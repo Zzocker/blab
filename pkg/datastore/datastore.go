@@ -2,10 +2,13 @@ package datastore
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/pkg/errors"
 	"github.com/gomodule/redigo/redis"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 // DumbDS : represents a datastore which doesn't support query feature
@@ -21,10 +24,10 @@ type DumbDS interface {
 // eg : mongo
 type SmartDS interface {
 	Store(ctx context.Context, in interface{}) errors.E
-	Get(ctx context.Context, isbn string) ([]byte, errors.E)
+	Get(ctx context.Context, key, value string) ([]byte, errors.E)
 	Update(ctx context.Context, key, value string, in interface{}) errors.E
 	Delete(ctx context.Context, key, value string) errors.E
-	Query(ctx context.Context, query map[string]interface{}, pageNumber, perPage int) ([][]byte, errors.E)
+	Query(ctx context.Context, sortingKey string, query map[string]interface{}, pageNumber, perPage int64) ([][]byte, errors.E)
 }
 
 // NewDumbDS creates a new DumbDB; database which doesn't suport query
@@ -50,4 +53,22 @@ func NewDumbDS(conf config.DatastoreConf) (DumbDS, errors.E) {
 		return nil, errors.New(errors.CodeInternalErr, "failed to ping redis")
 	}
 	return &redisStore{p: &pool}, nil
+}
+
+// NewSmartDS create a new smart datastore
+// smart datastore support rich query feature
+// currently mongodb
+func NewSmartDS(conf config.DatastoreConf) (SmartDS, errors.E) {
+	addrs := fmt.Sprintf("mongodb://%s:%s@%s", conf.Username, conf.Password, conf.URL)
+	client, err := mongo.NewClient(options.Client().ApplyURI(addrs))
+	if err != nil {
+		return nil, errors.New(errors.CodeInternalErr, fmt.Sprintf("failed to create client %+v", err))
+	}
+	err = client.Connect(context.Background())
+	if err != nil {
+		return nil, errors.New(errors.CodeInternalErr, fmt.Sprintf("failed to connect %+v", err))
+	}
+	return &mongoDS{
+		db: client.Database(conf.Database).Collection(conf.Collection),
+	}, nil
 }

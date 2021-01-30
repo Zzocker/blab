@@ -89,6 +89,7 @@ func TestRedisDelete(t *testing.T) {
 	is.Equal(redis.ErrNil, rErr)
 }
 
+
 //
 func testRedisPool() *redis.Pool {
 	pool := redis.NewPool(func() (redis.Conn, error) {
