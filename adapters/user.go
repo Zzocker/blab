@@ -43,9 +43,9 @@ func (b *userStore) Query(ctx context.Context, sortKey string, query map[string]
 	if err != nil {
 		return nil, err
 	}
-	books := make([]model.User, len(raws))
+	users := make([]model.User, len(raws))
 	for i := range raws {
-		bson.Unmarshal(raws[i], &books[i])
+		bson.Unmarshal(raws[i], &users[i])
 	}
-	return books, nil
+	return users, nil
 }
