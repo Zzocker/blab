@@ -14,7 +14,7 @@ type BookStorePort interface {
 	Get(ctx context.Context, isbn string) (*model.Book, errors.E)
 	Update(ctx context.Context, isbn string, book model.Book) errors.E
 	Delete(ctx context.Context, isbn string) errors.E
-	Query(ctx context.Context, query map[string]interface{}, pageNumber, perPage int) ([]model.Book, errors.E)
+	Query(ctx context.Context, sortKey string, query map[string]interface{}, pageNumber, perPage int64) ([]model.Book, errors.E)
 }
 
 // UserStorePort represents userprofile database, which will be implemented by user store adapter
