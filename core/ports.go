@@ -24,7 +24,7 @@ type UserStorePort interface {
 	Get(ctx context.Context, username string) (*model.User, errors.E)
 	Update(ctx context.Context, username string, user model.User) errors.E
 	Delete(ctx context.Context, username string) errors.E
-	Query(ctx context.Context, sortKey string, query map[string]interface{}, pageNumber, perPage int) ([]model.User, errors.E)
+	Query(ctx context.Context, sortKey string, query map[string]interface{}, pageNumber, perPage int64) ([]model.User, errors.E)
 }
 
 // OAuthStore represents oauth database, which will be implemented by oauth store adapter
@@ -42,5 +42,5 @@ type CommentStore interface {
 	Get(ctx context.Context, commentID string) (*model.Comment, errors.E)
 	Update(ctx context.Context, commentID string, comment model.Comment) errors.E
 	Delete(ctx context.Context, comment string) errors.E
-	Query(ctx context.Context, query map[string]interface{}, pageNumber, perPage int) ([]model.Comment, errors.E)
+	Query(ctx context.Context, sortKey string, query map[string]interface{}, pageNumber, perPage int64) ([]model.Comment, errors.E)
 }

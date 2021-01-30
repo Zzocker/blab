@@ -32,7 +32,7 @@ func (b *userStore) Get(ctx context.Context, username string) (*model.User, erro
 	}
 	return &user, nil
 }
-func (b *userStore) Update(ctx context.Context, username string, user model.Book) errors.E {
+func (b *userStore) Update(ctx context.Context, username string, user model.User) errors.E {
 	return b.db.Update(ctx, userPrimaryKeyName, username, user)
 }
 func (b *userStore) Delete(ctx context.Context, username string) errors.E {
