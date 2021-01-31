@@ -65,3 +65,7 @@ func (u *userCore) Update(ctx context.Context, username string, reader io.Reader
 	}
 	return usr, nil
 }
+
+func (u *userCore) Delete(ctx context.Context, username string) errors.E {
+	return u.uStore.Delete(ctx, username)
+}

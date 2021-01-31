@@ -13,4 +13,5 @@ type UserCore interface {
 	Register(ctx context.Context, in user.Register) (*model.User, errors.E)
 	Get(ctx context.Context, username string) (*model.User, errors.E)
 	Update(ctx context.Context, username string, reader io.Reader) (*model.User, errors.E)
+	Delete(ctx context.Context, username string) errors.E
 }
