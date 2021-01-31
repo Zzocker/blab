@@ -1,10 +1,4 @@
 port: 8081
-mongoConf:
-  url: localhost:27018
-  username: root
-  password: password
-  database: blab
-userCollection: user
 core:
   user:
     userStoreConf:
@@ -13,3 +7,6 @@ core:
         password: password
         database: blab
         collection: user
+  oauth:
+    tokenStoreConf:
+        url: localhost:6379

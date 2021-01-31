@@ -10,16 +10,17 @@ import (
 var (
 	f = []httpRouter{
 		&userAPI{},
+		&oauthAPI{},
 	}
 )
 
 // HTTPRouter :
 type httpRouter interface {
-	RegisterHandlers(conf config.Core, nonAuthR, authR *gin.RouterGroup) errors.E
+	RegisterHandlers(conf config.C, nonAuthR, authR *gin.RouterGroup) errors.E
 }
 
 // BuildAllRouter : build all routers
-func BuildAllRouter(conf config.Core, nonAuthR, authR *gin.RouterGroup) errors.E {
+func BuildAllRouter(conf config.C, nonAuthR, authR *gin.RouterGroup) errors.E {
 	for i := range f {
 		err := f[i].RegisterHandlers(conf, nonAuthR, authR)
 		if err != nil {

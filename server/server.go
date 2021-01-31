@@ -24,7 +24,7 @@ func Run(conf *config.C) {
 	auth := r.Group("/a")
 	noAuth := r.Group("/n")
 
-	httpapi.BuildAllRouter(conf.Core, noAuth, auth)
+	httpapi.BuildAllRouter(*conf, noAuth, auth)
 	start(r, conf)
 }
 

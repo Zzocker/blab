@@ -8,17 +8,19 @@ import (
 
 // C represents loaded config from yaml file
 type C struct {
-	Port             int           `yaml:"port"`
-	MongoConf        DatastoreConf `yaml:"mongoConf"`
-	UserDSCollection string        `yaml:"userCollection"`
+	Port int `yaml:"port"`
 	//
-	Core             Core          `yaml:"core"`
+	Core Core `yaml:"core"`
 }
 
 type Core struct {
-	User UserCoreConf `yaml:"user"`
+	User  UserCoreConf  `yaml:"user"`
+	OAuth OAuthCoreConf `yaml:"oauth"`
 }
 
+type OAuthCoreConf struct {
+	TokenStoreConf DatastoreConf `yaml:"tokenStoreConf"`
+}
 type UserCoreConf struct {
 	UserStoreConf DatastoreConf `yaml:"userStoreConf"`
 }

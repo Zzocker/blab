@@ -35,6 +35,7 @@ const (
 	CodeAlreadyExists
 	CodeInvalidArgument
 	CodeInternalErr
+	CodeUnauthorized
 )
 
 var (
@@ -43,5 +44,6 @@ var (
 		CodeAlreadyExists:   http.StatusConflict,
 		CodeInvalidArgument: http.StatusBadRequest,
 		CodeInternalErr:     http.StatusInternalServerError,
+		CodeUnauthorized:    http.StatusUnauthorized,
 	}
 )

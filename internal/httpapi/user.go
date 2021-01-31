@@ -15,8 +15,8 @@ type userAPI struct {
 	c core.UserCore
 }
 
-func (u *userAPI) RegisterHandlers(conf config.Core, nonAuthR, authR *gin.RouterGroup) errors.E {
-	c, err := user.NewUserCore(conf.User)
+func (u *userAPI) RegisterHandlers(conf config.C, nonAuthR, authR *gin.RouterGroup) errors.E {
+	c, err := user.NewUserCore(conf.Core.User)
 	if err != nil {
 		return err
 	}

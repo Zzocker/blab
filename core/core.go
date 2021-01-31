@@ -15,3 +15,7 @@ type UserCore interface {
 	Update(ctx context.Context, username string, reader io.Reader) (*model.User, errors.E)
 	Delete(ctx context.Context, username string) errors.E
 }
+
+type OAuthCore interface {
+	Login(ctx context.Context, username, password string) (map[string]model.Token, errors.E)
+}
