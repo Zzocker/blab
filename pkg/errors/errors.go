@@ -1,18 +1,20 @@
 package errors
 
+import "net/http"
+
 // E represents error interface used throughout this application
 type E interface {
 	Error() string
-	GetStatus() int
+	GetStatus() code
 }
 
 type err struct {
-	code int
+	code code
 	msg  string
 }
 
 // New : Create a new error type
-func New(code int, msg string) E {
+func New(code code, msg string) E {
 	return &err{
 		code: code,
 		msg:  msg,
@@ -22,13 +24,24 @@ func New(code int, msg string) E {
 func (e *err) Error() string {
 	return e.msg
 }
-func (e *err) GetStatus() int {
+func (e *err) GetStatus() code {
 	return e.code
 }
 
+type code uint8
+
 const (
-	CodeNotFound = iota + 1
+	CodeNotFound code = iota + 1
 	CodeAlreadyExists
 	CodeInvalidArgument
 	CodeInternalErr
+)
+
+var (
+	ToHTTP = map[code]int{
+		CodeNotFound:        http.StatusNotFound,
+		CodeAlreadyExists:   http.StatusConflict,
+		CodeInvalidArgument: http.StatusBadRequest,
+		CodeInternalErr:     http.StatusInternalServerError,
+	}
 )

@@ -1,22 +1,16 @@
 package model
 
-import "time"
-
 type User struct {
 	Username  string        `json:"username" bson:"username"`
 	Details   UserDetails   `json:"details" bson:"details"`
 	Contacts  []UserContact `json:"contacts" bson:"contacts"`
 	Rating    UserRating    `json:"rating" bson:"rating"`
-	CreatedOn time.Time     `json:"created_on" bson:"created_on"`
+	CreatedOn int64         `json:"created_on" bson:"created_on"`
 	Password  string        `json:"-" bson:"password"`
 }
 
-type contactType string
-
-var (
-	ContactTypeList = map[contactType]string{
-		// contactType("Linkdin") : "linkdin",
-	}
+const (
+	UserContactEmail = "email"
 )
 
 type UserContact struct {
@@ -30,6 +24,7 @@ type UserRating struct {
 }
 
 type UserDetails struct {
-	Name string `json:"name" bson:"name"`
-	Age  int    `json:"age" bson:"age"`
+	Name   string `json:"name" bson:"name"`
+	Age    int    `json:"age" bson:"age"`
+	Gender string `json:"gender"`
 }
