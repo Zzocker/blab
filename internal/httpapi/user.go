@@ -24,9 +24,9 @@ func (u *userAPI) RegisterHandlers(conf config.Core, nonAuthR, authR *gin.Router
 	u.c = c
 
 	/// non auth routers
-	nonAuthR.POST("/register", u.register)
+	nonAuthR.POST("/user/register", u.register)
 	/// auth router
-
+	authR.GET("/user/:username", u.get)
 	return nil
 }
 
@@ -47,6 +47,23 @@ func (u *userAPI) register(c *gin.Context) {
 	in.Password = pass
 	usr, err := u.c.Register(c.Request.Context(), in)
 	if err != nil {
+		log.L.Error(err)
+		sendMsg(c, errors.ToHTTP[err.GetStatus()], err.Error())
+		return
+	}
+	sendData(c, http.StatusOK, usr)
+}
+
+func (u *userAPI) get(c *gin.Context) {
+	username := c.Param("username")
+	if username == "" {
+		log.L.Error("empty username")
+		sendMsg(c, http.StatusBadRequest, "empty username")
+		return
+	}
+	usr, err := u.c.Get(c.Request.Context(), username)
+	if err != nil {
+		log.L.Error(err)
 		sendMsg(c, errors.ToHTTP[err.GetStatus()], err.Error())
 		return
 	}

@@ -42,3 +42,7 @@ func (u *userCore) Register(ctx context.Context, in Register) (*model.User, erro
 	}
 	return &usr, nil
 }
+
+func (u *userCore) Get(ctx context.Context, username string) (*model.User, errors.E) {
+	return u.uStore.Get(ctx, username)
+}
