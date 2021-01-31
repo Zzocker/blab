@@ -26,16 +26,20 @@ type Logger interface {
 	// Error is like fmt.Sprint()
 	Errorf(format string, args ...interface{})
 	// Errorf is like fmt.Sprintf()
+
+	Fatal(args ...interface{})
+	// Error is like fmt.Sprint()
+	Fatalf(format string, args ...interface{})
+	// Errorf is like fmt.Sprintf()
 }
 
-// New Creates a new logger using default configuration
-func New() Logger {
+func init() {
 	l := logrus.New()
 	l.WriterLevel(logrus.DebugLevel)
-	return &logger{l}
+	L = logger{l}
 }
 
-// WithFields :
-func WithFields(l Logger, fields map[string]interface{}) Logger {
-	return l.(*logger).WithFields(fields)
+// With :
+func With(fields map[string]interface{}) Logger {
+	return L.(*logger).WithFields(fields)
 }

@@ -11,6 +11,16 @@ type C struct {
 	Port             int           `yaml:"port"`
 	MongoConf        DatastoreConf `yaml:"mongoConf"`
 	UserDSCollection string        `yaml:"userCollection"`
+	//
+	Core             Core          `yaml:"core"`
+}
+
+type Core struct {
+	User UserCoreConf `yaml:"user"`
+}
+
+type UserCoreConf struct {
+	UserStoreConf DatastoreConf `yaml:"userStoreConf"`
 }
 
 // DatastoreConf : config for connecting database
@@ -19,7 +29,7 @@ type DatastoreConf struct {
 	Username   string `yaml:"username"`
 	Password   string `yaml:"password"`
 	Database   string `yaml:"database"`
-	Collection string `yaml:"-"`
+	Collection string `yaml:"collection"`
 }
 
 // Init load config file from confPath

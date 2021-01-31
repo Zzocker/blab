@@ -5,3 +5,11 @@ mongoConf:
   password: password
   database: blab
 userCollection: user
+core:
+  user:
+    userStoreConf:
+        url: localhost:27017
+        username: root
+        password: password
+        database: blab
+        collection: user

@@ -3,16 +3,16 @@ package errors
 // E represents error interface used throughout this application
 type E interface {
 	Error() string
-	GetStatus() codes
+	GetStatus() int
 }
 
 type err struct {
-	code codes
+	code int
 	msg  string
 }
 
 // New : Create a new error type
-func New(code codes, msg string) E {
+func New(code int, msg string) E {
 	return &err{
 		code: code,
 		msg:  msg,
@@ -22,14 +22,12 @@ func New(code codes, msg string) E {
 func (e *err) Error() string {
 	return e.msg
 }
-func (e *err) GetStatus() codes {
+func (e *err) GetStatus() int {
 	return e.code
 }
 
-type codes uint8
-
 const (
-	CodeNotFound codes = iota + 1
+	CodeNotFound = iota + 1
 	CodeAlreadyExists
 	CodeInvalidArgument
 	CodeInternalErr
