@@ -4,6 +4,7 @@ import (
 	"context"
 	"io"
 
+	"github.com/Zzocker/blab/core/book"
 	"github.com/Zzocker/blab/core/user"
 	"github.com/Zzocker/blab/model"
 	"github.com/Zzocker/blab/pkg/errors"
@@ -21,4 +22,8 @@ type OAuthCore interface {
 }
 
 type BookCore interface {
+	AddBook(ctx context.Context, in book.BookCreate) (*model.Book, errors.E)
+	Get(ctx context.Context, isbn string) (*model.Book, errors.E)
+	Update(ctx context.Context, isbn string, reader io.Reader) (*model.Book, errors.E)
+	Remove(ctx context.Context, isbn string) errors.E
 }
