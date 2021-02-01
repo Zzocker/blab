@@ -27,8 +27,8 @@ func (u *userAPI) RegisterHandlers(conf config.C, nonAuthR, authR *gin.RouterGro
 	nonAuthR.POST("/user/register", u.register)
 	/// auth router
 	authR.GET("/user/:username", u.get)
-	authR.PATCH("/user/:username", u.update)
-	authR.DELETE("/user/:username", u.delete)
+	authR.PATCH("/user", u.update)
+	authR.DELETE("/user", u.delete)
 	return nil
 }
 
@@ -73,7 +73,7 @@ func (u *userAPI) get(c *gin.Context) {
 }
 
 func (u *userAPI) update(c *gin.Context) {
-	username := c.Param("username")
+	username := c.GetString("username")
 	if username == "" {
 		log.L.Error("empty username")
 		sendMsg(c, http.StatusBadRequest, "empty username")
@@ -89,7 +89,7 @@ func (u *userAPI) update(c *gin.Context) {
 }
 
 func (u *userAPI) delete(c *gin.Context) {
-	username := c.Param("username")
+	username := c.GetString("username")
 	if username == "" {
 		log.L.Error("empty username")
 		sendMsg(c, http.StatusBadRequest, "empty username")

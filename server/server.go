@@ -11,6 +11,7 @@ import (
 
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/internal/httpapi"
+	"github.com/Zzocker/blab/internal/middleware"
 	"github.com/Zzocker/blab/pkg/log"
 	"github.com/gin-gonic/gin"
 )
@@ -20,8 +21,9 @@ func Run(conf *config.C) {
 	r := gin.New()
 
 	r.Use(gin.Recovery())
+	middleware.BuildMiddleware(*conf)
 
-	auth := r.Group("/a")
+	auth := r.Group("/a", middleware.OAuth())
 	noAuth := r.Group("/n")
 
 	httpapi.BuildAllRouter(*conf, noAuth, auth)

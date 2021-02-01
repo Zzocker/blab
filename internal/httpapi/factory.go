@@ -20,14 +20,12 @@ type httpRouter interface {
 }
 
 // BuildAllRouter : build all routers
-func BuildAllRouter(conf config.C, nonAuthR, authR *gin.RouterGroup) errors.E {
+func BuildAllRouter(conf config.C, nonAuthR, authR *gin.RouterGroup) {
 	for i := range f {
 		err := f[i].RegisterHandlers(conf, nonAuthR, authR)
 		if err != nil {
-			log.L.Error("Failed to register", err)
-			return err
+			log.L.Fatal("Failed to register", err)
 		}
 	}
 	log.L.Info("All endpoints registered")
-	return nil
 }

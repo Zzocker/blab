@@ -9,8 +9,8 @@ import (
 type tokenType uint8
 
 const (
-	refreshToken tokenType = iota + 1
-	accessToken
+	RefreshToken tokenType = iota + 1
+	AccessToken
 )
 
 var (
@@ -30,7 +30,7 @@ func NewRefreshToken(username string) Token {
 	return Token{
 		ID:        uuid.New().String(),
 		Username:  username,
-		Type:      refreshToken,
+		Type:      RefreshToken,
 		ExpireIn:  int64(refreshTokenExpiry),
 		CreatedAt: time.Now().Unix(),
 	}
@@ -40,7 +40,7 @@ func NewAccessToken(username string) Token {
 	return Token{
 		ID:        uuid.New().String(),
 		Username:  username,
-		Type:      refreshToken,
+		Type:      AccessToken,
 		ExpireIn:  int64(accessTokenExpiry),
 		CreatedAt: time.Now().Unix(),
 	}
