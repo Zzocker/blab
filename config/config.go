@@ -14,11 +14,15 @@ type C struct {
 }
 
 type Core struct {
-	User  UserCoreConf  `yaml:"user"`
-	OAuth OAuthCoreConf `yaml:"oauth"`
-	Book  BookCoreConf  `yaml:"book"`
+	User    UserCoreConf    `yaml:"user"`
+	OAuth   OAuthCoreConf   `yaml:"oauth"`
+	Book    BookCoreConf    `yaml:"book"`
+	Comment CommentCoreConf `yaml:"coment"`
 }
 
+type CommentCoreConf struct {
+	CommentStoreConf DatastoreConf `yaml:"commentStoreConf"`
+}
 type OAuthCoreConf struct {
 	TokenStoreConf DatastoreConf `yaml:"tokenStoreConf"`
 }

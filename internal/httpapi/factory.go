@@ -12,6 +12,7 @@ var (
 		&userAPI{},
 		&oauthAPI{},
 		&bookAPI{},
+		&commentAPI{},
 	}
 )
 

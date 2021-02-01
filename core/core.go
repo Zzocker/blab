@@ -5,6 +5,7 @@ import (
 	"io"
 
 	"github.com/Zzocker/blab/core/book"
+	"github.com/Zzocker/blab/core/comment"
 	"github.com/Zzocker/blab/core/user"
 	"github.com/Zzocker/blab/model"
 	"github.com/Zzocker/blab/pkg/errors"
@@ -26,4 +27,8 @@ type BookCore interface {
 	Get(ctx context.Context, isbn string) (*model.Book, errors.E)
 	Update(ctx context.Context, isbn string, reader io.Reader) (*model.Book, errors.E)
 	Remove(ctx context.Context, isbn string) errors.E
+}
+
+type CommentCore interface {
+	CommentOn(ctx context.Context, com comment.CommentCreateInput) (*model.Comment, errors.E)
 }

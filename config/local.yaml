@@ -17,3 +17,10 @@ core:
         password: password
         database: blab
         collection: book
+  comment:
+    commentStoreConf:
+        url: localhost:27017
+        username: root
+        password: password
+        database: blab
+        collection: comment
