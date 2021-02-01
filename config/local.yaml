@@ -10,3 +10,10 @@ core:
   oauth:
     tokenStoreConf:
         url: localhost:6379
+  book:
+    bookStoreConf:
+        url: localhost:27017
+        username: root
+        password: password
+        database: blab
+        collection: book

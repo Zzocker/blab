@@ -11,6 +11,7 @@ var (
 	f = []httpRouter{
 		&userAPI{},
 		&oauthAPI{},
+		&bookAPI{},
 	}
 )
 

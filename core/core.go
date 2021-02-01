@@ -19,3 +19,6 @@ type UserCore interface {
 type OAuthCore interface {
 	Login(ctx context.Context, username, password string) (map[string]model.Token, errors.E)
 }
+
+type BookCore interface {
+}

@@ -16,6 +16,7 @@ type C struct {
 type Core struct {
 	User  UserCoreConf  `yaml:"user"`
 	OAuth OAuthCoreConf `yaml:"oauth"`
+	Book  BookCoreConf  `yaml:"book"`
 }
 
 type OAuthCoreConf struct {
@@ -23,6 +24,10 @@ type OAuthCoreConf struct {
 }
 type UserCoreConf struct {
 	UserStoreConf DatastoreConf `yaml:"userStoreConf"`
+}
+
+type BookCoreConf struct {
+	BookStoreConf DatastoreConf `yaml:"bookStoreConf"`
 }
 
 // DatastoreConf : config for connecting database
