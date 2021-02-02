@@ -23,7 +23,7 @@ func (c CommentCreateInput) validate() errors.E {
 	return err
 }
 
-func (c CommentCreateInput) toComment(commentType string, username string) *model.Comment {
+func (c CommentCreateInput) toComment(commentType model.CommentType, username string) *model.Comment {
 	return &model.Comment{
 		ID:    uuid.New().String(),
 		Type:  commentType,

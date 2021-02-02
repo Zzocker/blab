@@ -29,6 +29,12 @@ type BookCore interface {
 	Remove(ctx context.Context, isbn string) errors.E
 }
 
+// Implement this at last
+// TODO
 type CommentCore interface {
-	CommentOn(ctx context.Context, com comment.CommentCreateInput) (*model.Comment, errors.E)
+	CommentOn(ctx context.Context, com comment.CommentCreateInput, comType model.CommentType) (*model.Comment, errors.E)
+	GetComment(ctx context.Context, commentID string) (*model.Comment, errors.E)
+	DeleteComment(ctx context.Context, commentID string) errors.E
+	GetCommentMadeOn(ctx context.Context, onID string, comType model.CommentType, perPage, pagNumber int64) ([]model.Comment, errors.E)
+	UpdateComment(ctx context.Context, cmtID, updateString string) (*model.Comment, errors.E)
 }
