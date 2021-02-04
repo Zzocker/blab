@@ -29,3 +29,12 @@ func ReadConf(file string) (*ApplicationConf, errors.E) {
 	}
 	return &conf, nil
 }
+
+// DatastoreConf represents configuration of a datastore (like mongo/redis)
+type DatastoreConf struct {
+	URL        string
+	Username   string
+	Password   string
+	Database   string
+	Collection string
+}
