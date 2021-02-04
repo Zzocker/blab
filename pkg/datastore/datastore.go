@@ -3,6 +3,7 @@ package datastore
 import (
 	"context"
 
+	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/pkg/errors"
 )
 
@@ -16,4 +17,10 @@ type SmartDS interface {
 	Query(ctx context.Context, sortingKey string, query map[string]interface{}, pageNumber, perPage int64) ([][]byte, errors.E)
 	CreateIndex(ctx context.Context, key string, unique bool) errors.E
 	Close(ctx context.Context)
+}
+
+// NewSmartDS creates a new smart datastore
+// currently mongo-db is used
+func NewSmartDS(conf config.DatastoreConf) (SmartDS, errors.E) {
+	return newMongoDS(conf)
 }

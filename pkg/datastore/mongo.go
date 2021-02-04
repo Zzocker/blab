@@ -21,7 +21,7 @@ type mongoDS struct {
 	db *mongo.Collection
 }
 
-func newMongoDS(conf config.DatastoreConf) (SmartDS, errors.E) {
+func newMongoDS(conf config.DatastoreConf) (*mongoDS, errors.E) {
 	logger.L.Info(smartDSLoggerPrefix, fmt.Sprintf("connecting url=mongodb://%s database=%s collection=%s", conf.URL, conf.Database, conf.Collection))
 	URI := fmt.Sprintf("mongodb://%s:%s@%s", conf.Username, conf.Password, conf.URL)
 	client, err := mongo.NewClient(options.Client().ApplyURI(URI))

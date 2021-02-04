@@ -11,4 +11,7 @@ const (
 
 	// CodeInternal called for internal server error
 	CodeInternal
+
+	// CodeAlreadyExists returned when trying to store a already exists document
+	CodeAlreadyExists
 )
