@@ -1,8 +1,23 @@
 package main
 
-import "github.com/Zzocker/blab/internal/logger"
+import (
+	"flag"
+	"os"
+
+	"github.com/Zzocker/blab/config"
+	"github.com/Zzocker/blab/internal/logger"
+)
+
+var (
+	confPath = flag.String("conf", "config/local.yaml", "configuration path")
+)
 
 func main() {
-	logger.L.Info("show me info message")
-	logger.L.Error("show me error message")
+	flag.Parse()
+	conf, err := config.ReadConf(*confPath)
+	if err != nil {
+		logger.L.Error(err.Error())
+		os.Exit(1)
+	}
+	_ = conf
 }
