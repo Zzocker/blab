@@ -12,7 +12,7 @@ const (
 	infoLevel
 
 	// caller depth
-	callerDepth = 2
+	callerDepth = 3
 )
 
 var (

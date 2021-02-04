@@ -21,7 +21,7 @@ func NewLogger(callerEnabled bool, infoWriter, errWriter io.Writer) Logger {
 	}
 	var flag int
 	if callerEnabled {
-		flag = golog.Lshortfile | golog.LstdFlags
+		flag = golog.Llongfile
 	}
 	flag = flag | golog.Ltime | golog.Ldate | golog.Lmicroseconds
 	return &logger{
