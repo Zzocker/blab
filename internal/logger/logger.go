@@ -11,5 +11,5 @@ import (
 var L log.Logger
 
 func init() {
-	L = log.NewLogger(true, os.Stdout, nil)
+	L = log.NewLogger(false, os.Stdout, nil)
 }

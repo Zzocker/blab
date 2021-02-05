@@ -3,6 +3,7 @@ package datastore
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/internal/logger"
@@ -24,14 +25,19 @@ type mongoDS struct {
 func newMongoDS(conf config.DatastoreConf) (*mongoDS, errors.E) {
 	logger.L.Info(smartDSLoggerPrefix, fmt.Sprintf("connecting url=mongodb://%s database=%s collection=%s", conf.URL, conf.Database, conf.Collection))
 	URI := fmt.Sprintf("mongodb://%s:%s@%s", conf.Username, conf.Password, conf.URL)
+	logger.L.Info(smartDSLoggerPrefix, "creating new client")
 	client, err := mongo.NewClient(options.Client().ApplyURI(URI))
 	if err != nil {
 		return nil, errors.InitErr(err, code.CodeInternal)
 	}
-	if err = client.Connect(context.TODO()); err != nil {
+	logger.L.Info(smartDSLoggerPrefix, "connecting with created client")
+	if err = client.Connect(context.Background()); err != nil {
 		return nil, errors.InitErr(err, code.CodeInternal)
 	}
-	if err = client.Ping(context.TODO(), nil); err != nil {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	logger.L.Info(smartDSLoggerPrefix, "pinging datastore")
+	if err = client.Ping(ctx, nil); err != nil {
 		return nil, errors.InitErr(err, code.CodeInternal)
 	}
 	logger.L.Info(smartDSLoggerPrefix, "connected")

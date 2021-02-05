@@ -6,6 +6,7 @@ import (
 
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/internal/logger"
+	"github.com/Zzocker/blab/server"
 )
 
 var (
@@ -19,5 +20,5 @@ func main() {
 		logger.L.Error(err.Error())
 		os.Exit(1)
 	}
-	_ = conf
+	server.BuildAndRun(*conf)
 }
