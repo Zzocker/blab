@@ -12,6 +12,7 @@ import (
 	"github.com/Zzocker/blab/config"
 	api "github.com/Zzocker/blab/internal/http"
 	"github.com/Zzocker/blab/internal/logger"
+	"github.com/Zzocker/blab/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,7 +27,8 @@ func BuildAndRun(conf config.ApplicationConf) {
 	// gin engine
 	engine := gin.New()
 	engine.Use(gin.Recovery())
-
+	gin.SetMode(gin.ReleaseMode)
+	engine.Use(middleware.AccessLog())
 	// oauth and non-oauth group
 	oauth := engine.Group("/")
 	noOauth := engine.Group("/public")

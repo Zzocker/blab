@@ -26,5 +26,11 @@ func (u *userRouter) RegisterHandlers(conf config.ApplicationConf, oauth, noOaut
 	u.c = c
 
 	// register oauth handlers
+	noOauth.POST("/register", u.register)
+	logger.L.Info(userRouterLoggerPrefix, "handler registered")
 	return nil
+}
+
+func (u *userRouter) register(c *gin.Context) {
+
 }
