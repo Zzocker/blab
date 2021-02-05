@@ -3,7 +3,6 @@ package http
 import (
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/core"
-	usercore "github.com/Zzocker/blab/core/user"
 	"github.com/Zzocker/blab/internal/logger"
 	"github.com/Zzocker/blab/pkg/errors"
 	"github.com/gin-gonic/gin"
@@ -19,12 +18,9 @@ type userRouter struct {
 
 func (u *userRouter) RegisterHandlers(conf config.ApplicationConf, oauth, noOauth *gin.RouterGroup) errors.E {
 	logger.L.Info(userRouterLoggerPrefix, "registering handlers")
-	c, err := usercore.Build(conf)
-	if err != nil {
-		return err
-	}
+	logger.L.Info(userRouterLoggerPrefix, "getting user core")
+	c := core.GetUserCore()
 	u.c = c
-
 	// register oauth handlers
 	noOauth.POST("/register", u.register)
 	logger.L.Info(userRouterLoggerPrefix, "handler registered")

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/Zzocker/blab/config"
+	"github.com/Zzocker/blab/core"
 	api "github.com/Zzocker/blab/internal/http"
 	"github.com/Zzocker/blab/internal/logger"
 	"github.com/Zzocker/blab/internal/middleware"
@@ -32,7 +33,11 @@ func BuildAndRun(conf config.ApplicationConf) {
 	// oauth and non-oauth group
 	oauth := engine.Group("/")
 	noOauth := engine.Group("/public")
-
+	// build core
+	if err := core.BuildAll(conf); err != nil {
+		logger.L.Error(serverLoggerPrefix, fmt.Sprintf("failed to build core : %v", err.Error()))
+		os.Exit(1)
+	}
 	// register routers
 	if err := api.RegisterRouters(conf, oauth, noOauth); err != nil {
 		logger.L.Error(serverLoggerPrefix, fmt.Sprintf("failed to register routers : %v", err.Error()))
