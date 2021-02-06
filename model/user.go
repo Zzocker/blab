@@ -3,7 +3,7 @@ package model
 // User :
 type User struct {
 	Username  string        `json:"username" bson:"username"`
-	Details   UserDetails   `json:'details" bson:'details"`
+	Details   UserDetails   `json:"details" bson:"details"`
 	Contacts  []UserContact `json:"contacts" bson:"contacts"`
 	Rating    UserRating    `json:"rating" bson:"rating"`
 	CreatedOn int64         `json:"-" bson:"created_on"`
@@ -31,8 +31,8 @@ const (
 )
 
 type UserContact struct {
-	Type  string `json:"type" bson:"type"`
-	Value string `json:"value" bson:"value"`
+	Type  UserContactType `json:"type" bson:"type"`
+	Value string          `json:"value" bson:"value"`
 }
 
 type UserContactType uint8

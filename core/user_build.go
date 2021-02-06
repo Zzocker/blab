@@ -12,7 +12,7 @@ const (
 )
 
 var (
-	uCore *userCore
+	uCore UserCore
 )
 
 // CoreBuilder implements core builderinterface
@@ -34,6 +34,6 @@ func (c *userBuilder) build(conf config.ApplicationConf) errors.E {
 }
 
 // GetUserCore returns global level user core variable
-func GetUserCore() *userCore {
+func GetUserCore() UserCore {
 	return uCore
 }
