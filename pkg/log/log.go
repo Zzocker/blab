@@ -4,9 +4,9 @@ import "io"
 
 type Logger interface {
 	// [requestID] [packageName] [msg]
-	Debugf(reqID int, pkg string, f string, args ...interface{})
-	Infof(reqID int, pkg string, f string, args ...interface{})
-	Errorf(reqID int, pkg string, f string, args ...interface{})
+	Debugf(reqID int64, pkg string, f string, args ...interface{})
+	Infof(reqID int64, pkg string, f string, args ...interface{})
+	Errorf(reqID int64, pkg string, f string, args ...interface{})
 }
 
 // New create a new logger

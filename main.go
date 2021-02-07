@@ -6,6 +6,7 @@ import (
 
 	"github.com/Zzocker/blab/config"
 	"github.com/Zzocker/blab/internal/logger"
+	"github.com/Zzocker/blab/server"
 )
 
 var (
@@ -20,4 +21,5 @@ func main() {
 	}
 	logger.Register(conf.LogLevel)
 	logger.L.Infof(-1, "main", "application logger registered")
+	server.BuildAndRun(conf)
 }

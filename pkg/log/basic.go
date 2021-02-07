@@ -53,13 +53,13 @@ func newBasicLogger(writer io.Writer, lvl Level) *logger {
 	}
 }
 
-func (l *logger) Debugf(reqID int, pkg string, f string, args ...interface{}) {
+func (l *logger) Debugf(reqID int64, pkg string, f string, args ...interface{}) {
 	l.output(Debug, []byte(fmt.Sprintf("[ %d ] [ %s ] %s", reqID, pkg, fmt.Sprintf(f, args...))))
 }
-func (l *logger) Infof(reqID int, pkg string, f string, args ...interface{}) {
+func (l *logger) Infof(reqID int64, pkg string, f string, args ...interface{}) {
 	l.output(Info, []byte(fmt.Sprintf("[ %d ] [ %s ] %s", reqID, pkg, fmt.Sprintf(f, args...))))
 }
-func (l *logger) Errorf(reqID int, pkg string, f string, args ...interface{}) {
+func (l *logger) Errorf(reqID int64, pkg string, f string, args ...interface{}) {
 	l.output(Error, []byte(fmt.Sprintf("[ %d ] [ %s ] %s", reqID, pkg, fmt.Sprintf(f, args...))))
 }
 
