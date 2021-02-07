@@ -1,0 +1,2 @@
+port: 8080
+logLevel: -1 # debug: -1 , info : 0 Error : 1
