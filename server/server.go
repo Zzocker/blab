@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/Zzocker/blab/config"
+	stub "github.com/Zzocker/blab/internal/http"
 	"github.com/Zzocker/blab/internal/logger"
 	"github.com/Zzocker/blab/internal/middleware"
 	"github.com/gin-gonic/gin"
@@ -27,6 +28,11 @@ func BuildAndRun(conf *config.ApplicationConf) {
 	engin.Use(gin.Recovery())
 	engin.Use(middleware.Access())
 
+	public := engin.Group("/public")
+	private := engin.Group("/api")
+
+	// register routers
+	stub.RegisterRouters(conf, public, private)
 	start(engin, conf.Port)
 }
 
@@ -48,5 +54,5 @@ func start(engine *gin.Engine, port int) {
 	if err := srv.Shutdown(ctx); err != nil {
 		logger.L.Errorf(-2, pkgName, "forceing server to shutdown")
 	}
-	logger.L.Infof(2, pkgName, "existing server...")
+	logger.L.Infof(-2, pkgName, "existing server...")
 }
