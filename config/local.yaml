@@ -1,2 +1,10 @@
 port: 8081
 logLevel: -1 # debug: -1 , info : 0 Error : 1
+core:
+  user:
+    userDatastore:
+        URL: localhost:27017
+        Username: root
+        Password: password
+        Database: blab
+        Collection: user

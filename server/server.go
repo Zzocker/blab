@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/Zzocker/blab/config"
+	"github.com/Zzocker/blab/core"
 	stub "github.com/Zzocker/blab/internal/http"
 	"github.com/Zzocker/blab/internal/logger"
 	"github.com/Zzocker/blab/internal/middleware"
@@ -32,6 +33,7 @@ func BuildAndRun(conf *config.ApplicationConf) {
 	private := engin.Group("/api")
 
 	// register routers
+	core.BuildAll(conf)
 	stub.RegisterRouters(conf, public, private)
 	start(engin, conf.Port)
 }
